@@ -1,72 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.luedinski</groupId>
-	<artifactId>grocery-list-parent</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>todo-list-parent</name>
-	<description>ToDo List Parent</description>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<orm.lite.version>5.1</orm.lite.version>
-		<junit.platform.version>5.2.0</junit.platform.version>
-	</properties>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.luedinski</groupId>
+    <artifactId>grocery-list-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>todo-list-parent</name>
+    <description>ToDo List Parent</description>
 
-	<modules>
-		<module>grocery-list-service</module>
-		<module>grocery-list-persistence</module>
-		<module>grocery-list-rest</module>
-		<module>grocery-list-boot</module>
-		<module>grocery-list-webapp</module>
-	</modules>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <orm.lite.version>5.1</orm.lite.version>
+        <junit.platform.version>5.2.0</junit.platform.version>
+    </properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>io.spring.platform</groupId>
-				<artifactId>platform-bom</artifactId>
-				<version>Cairo-SR1</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.j256.ormlite</groupId>
-				<artifactId>ormlite-core</artifactId>
-				<version>${orm.lite.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.j256.ormlite</groupId>
-				<artifactId>ormlite-jdbc</artifactId>
-				<version>${orm.lite.version}</version>
-			</dependency>			
-			<!-- Test -->
-			<dependency>
-				<groupId>com.h2database</groupId>
-				<artifactId>h2</artifactId>
-				<version>1.4.197</version>
-			</dependency>
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter-engine</artifactId>
-				<version>${junit.jupiter.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.junit.platform</groupId>
-				<artifactId>junit-platform-runner</artifactId>
-				<version>${junit.platform.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.assertj</groupId>
-				<artifactId>assertj-core</artifactId>
-				<version>3.10.0</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+    <modules>
+        <module>grocery-list-service</module>
+        <module>grocery-list-persistence</module>
+        <module>grocery-list-rest</module>
+        <module>grocery-list-boot</module>
+        <module>grocery-list-webapp</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.spring.platform</groupId>
+                <artifactId>platform-bom</artifactId>
+                <version>Cairo-SR1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.j256.ormlite</groupId>
+                <artifactId>ormlite-core</artifactId>
+                <version>${orm.lite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.j256.ormlite</groupId>
+                <artifactId>ormlite-jdbc</artifactId>
+                <version>${orm.lite.version}</version>
+            </dependency>
+            <!-- Test -->
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.4.197</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>5.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-runner</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>3.10.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
