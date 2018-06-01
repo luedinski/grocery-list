@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    
+
     <groupId>org.luedinski</groupId>
     <artifactId>grocery-list-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -53,15 +53,11 @@
                 <artifactId>h2</artifactId>
                 <version>1.4.197</version>
             </dependency>
+
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
+                <artifactId>junit-jupiter-api</artifactId>
                 <version>5.2.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.platform</groupId>
-                <artifactId>junit-platform-runner</artifactId>
-                <version>1.2.0</version>
             </dependency>
             <dependency>
                 <groupId>org.assertj</groupId>
@@ -85,6 +81,11 @@
                         <groupId>org.junit.platform</groupId>
                         <artifactId>junit-platform-surefire-provider</artifactId>
                         <version>1.2.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>5.2.0</version>
                     </dependency>
                 </dependencies>
             </plugin>

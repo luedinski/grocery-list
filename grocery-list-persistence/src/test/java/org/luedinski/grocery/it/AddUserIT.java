@@ -17,7 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {GroceryListPersistenceSpringConfiguration.class})
 @TestPropertySource("/META-INF/test-connection.properties")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class UserIT {
+public class AddUserIT {
 
     @Autowired
     private UserService userService;
