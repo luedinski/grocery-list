@@ -20,8 +20,9 @@ public class Category {
     Category() {
     }
 
-    public Category(String name) {
+    public Category(String name, User user) {
         this.name = name;
+        this.user = user;
     }
 
     public int getId() {

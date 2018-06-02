@@ -23,7 +23,7 @@ public class AddUserIT {
     private UserService userService;
 
     @Test
-    public void testCreateAll() throws Exception {
+    public void testCreateUser() throws Exception {
 
         User user = userService.create("Lüder", "12345");
         Assertions.assertThat(user.getId()).isEqualTo("Lüder");
@@ -63,7 +63,7 @@ public class AddUserIT {
 
         Assertions.assertThatExceptionOfType(IdentifierInUseException.class)
                 .isThrownBy(() -> userService.create("Lüder", "12345"))
-                .withMessage("Element with id Lüder already exists.");
+                .withMessage("Element with id 'Lüder' already exists.");
 
     }
 }

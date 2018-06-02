@@ -1,14 +1,13 @@
 package org.luedinski.grocery.service;
 
-import java.sql.SQLException;
-import java.util.Optional;
-
-import javax.annotation.PostConstruct;
-
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import org.luedinski.grocery.model.utils.SQLOperation;
+
+import javax.annotation.PostConstruct;
+import java.sql.SQLException;
+import java.util.Optional;
 
 public class AbstractModelService<M, I> {
 
@@ -45,5 +44,9 @@ public class AbstractModelService<M, I> {
 
     int create(M value) {
         return operate(() -> dao.create(value));
+    }
+
+    boolean exists(I id) {
+        return operate(() -> dao.idExists(id));
     }
 }

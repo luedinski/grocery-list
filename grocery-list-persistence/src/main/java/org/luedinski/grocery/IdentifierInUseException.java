@@ -6,6 +6,6 @@ package org.luedinski.grocery;
 public class IdentifierInUseException extends RuntimeException {
 
     public IdentifierInUseException(String id) {
-        super("Element with id " + id + " already exists.");
+        super("Element with id '" + id + "' already exists.");
     }
 }

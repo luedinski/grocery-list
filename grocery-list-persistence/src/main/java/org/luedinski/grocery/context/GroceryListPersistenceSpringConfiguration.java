@@ -1,7 +1,5 @@
 package org.luedinski.grocery.context;
 
-import java.sql.SQLException;
-
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
@@ -10,11 +8,17 @@ import org.luedinski.grocery.model.User;
 import org.luedinski.grocery.model.utils.PasswordCrypter;
 import org.luedinski.grocery.service.UserService;
 import org.springframework.beans.factory.BeanCreationException;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
+import org.springframework.context.support.MessageSourceSupport;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.env.Environment;
+
+import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 
 /**
  * The spring configuration.
@@ -26,20 +30,15 @@ import org.springframework.context.annotation.PropertySources;
 })
 public class GroceryListPersistenceSpringConfiguration {
 
-    @Value("${password.salt.iterations}")
-    private int passwordSaltIterations;
-    @Value("${jdbc.url}")
-    private String jdbcUrl;
-    @Value("${jdbc.user}")
-    private String jdbcUser;
-    @Value("${jdbc.password}")
-    private String jdbcPassword;
+    @Autowired
+    private Environment environment;
 
     /**
      * Constructor needed to disable API consumer to instantiate this type, but necessary for Spring Java-based (container) configuration.
      */
     GroceryListPersistenceSpringConfiguration() {
     }
+
 
     /**
      * Creates the bean implementing {@link ConnectionSource} for db access.
@@ -48,6 +47,9 @@ public class GroceryListPersistenceSpringConfiguration {
      */
     @Bean(destroyMethod = "close")
     ConnectionSource connectionSource() {
+        String jdbcUrl = environment.getProperty("jdbc.url");
+        String jdbcUser = environment.getProperty("jdbc.user");
+        String jdbcPassword = environment.getProperty("jdbc.password");
         try {
             return new JdbcPooledConnectionSource(jdbcUrl, jdbcUser, jdbcPassword);
         } catch (SQLException e) {
@@ -90,7 +92,21 @@ public class GroceryListPersistenceSpringConfiguration {
      */
     @Bean
     public PasswordCrypter passwordCrypter() {
-        return new PasswordCrypter(passwordSaltIterations);
+        return new PasswordCrypter(environment.getProperty("password.salt.iterations", Integer.class));
+    }
+
+    /**
+     * Creates the bean implementing {@link MessageSourceSupport}.
+     *
+     * @return The {@link MessageSourceSupport}
+     */
+    @Bean
+    public MessageSourceSupport messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setCacheSeconds(-1);
+        messageSource.setBasename("META-INF/i18n/translations");
+        messageSource.setDefaultEncoding(StandardCharsets.UTF_8.name());
+        return messageSource;
     }
 
 }
