@@ -3,13 +3,14 @@ package org.luedinski.grocery.service;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import org.luedinski.grocery.DatabaseOperationException;
 import org.luedinski.grocery.model.utils.SQLOperation;
 
 import javax.annotation.PostConstruct;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class AbstractModelService<M, I> {
+abstract class AbstractModelService<M, I> {
 
     protected final Dao<M, I> dao;
     private final Class<M> daoClazz;
@@ -25,7 +26,7 @@ public class AbstractModelService<M, I> {
         try {
             TableUtils.createTableIfNotExists(connectionSource, daoClazz);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
 
     }
@@ -38,7 +39,7 @@ public class AbstractModelService<M, I> {
         try {
             return operation.apply();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseOperationException(e);
         }
     }
 
@@ -49,4 +50,5 @@ public class AbstractModelService<M, I> {
     boolean exists(I id) {
         return operate(() -> dao.idExists(id));
     }
+
 }

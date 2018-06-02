@@ -13,6 +13,6 @@ public class CategoryService extends AbstractModelService<Category, Integer> {
     public Category create(String name, User user) {
         Category category = new Category(name, user);
         create(category);
-        return getById(category.getId()).orElseThrow(() -> new RuntimeException("Model not created " + name));
+        return category;
     }
 }
