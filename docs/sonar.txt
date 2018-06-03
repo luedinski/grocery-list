@@ -1,4 +1,4 @@
 mvn sonar:sonar \
   -Dsonar.organization=luedinski-github \
   -Dsonar.host.url=https://sonarcloud.io \
-  -Dsonar.login=3efbaf61224290fc6e3e8219c9857b1f71a6e40a
+  -Dsonar.login=b9ce61ada8dd23a6ffc4b81442e26fcbf344a9e1
