@@ -49,7 +49,7 @@ class UserServiceTest {
         when(dao.queryForEq("name", "name")).thenReturn(Collections.singletonList(new User("name", "pw1")));
         Assertions.assertThatExceptionOfType(UserNameExistsException.class)
                 .isThrownBy(() -> subject.create("name", "pw"))
-                .withMessage("Element with id 'name' already exists.");
+                .withMessage("User with name 'name' already exists.");
     }
 
     @Test
