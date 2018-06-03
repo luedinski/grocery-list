@@ -4,10 +4,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "products")
-public class Product {
+public class Product extends AbstractDAO {
 
-    @DatabaseField(generatedId = true)
-    private int id;
     @DatabaseField(canBeNull = false)
     private String name;
     @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "category_id")
@@ -20,10 +18,6 @@ public class Product {
 
     public Product(String name) {
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getName() {

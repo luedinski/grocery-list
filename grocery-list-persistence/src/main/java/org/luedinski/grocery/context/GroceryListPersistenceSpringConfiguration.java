@@ -75,7 +75,7 @@ public class GroceryListPersistenceSpringConfiguration {
      * @return The {@link Dao}
      */
     @Bean
-    Dao<User, String> userDao() {
+    Dao<User, Integer> userDao() {
         return createDao(User.class);
     }
 

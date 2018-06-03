@@ -3,7 +3,7 @@ package org.luedinski.grocery.it;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.luedinski.grocery.IdentifierInUseException;
+import org.luedinski.grocery.UserNameExistsException;
 import org.luedinski.grocery.model.User;
 import org.luedinski.grocery.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,8 @@ public class UserTest extends AbstractIntegrationTest {
     public void testCreateUser() throws Exception {
 
         User user = userService.create("Lüder", "12345");
-        Assertions.assertThat(user.getId()).isEqualTo("Lüder");
+        Assertions.assertThat(user.getId()).isGreaterThan(0);
+        Assertions.assertThat(user.getName()).isEqualTo("Lüder");
         Assertions.assertThat(user.getPassword()).isNotEmpty();
         //        Assertions.assertThat(new ArrayList<>(user.getLists())).isEmpty();
         //
@@ -50,13 +51,14 @@ public class UserTest extends AbstractIntegrationTest {
     @Test
     public void testDuplacteId() throws Exception {
         User user = userService.create("Lüder", "12345");
-        Assertions.assertThat(user.getId()).isEqualTo("Lüder");
+        Assertions.assertThat(user.getId()).isGreaterThan(0);
+        Assertions.assertThat(user.getName()).isEqualTo("Lüder");
         Assertions.assertThat(user.getPassword()).isNotEmpty();
         //        Assertions.assertThat(new ArrayList<>(user.getLists())).isEmpty();
 
-        Assertions.assertThatExceptionOfType(IdentifierInUseException.class)
+        Assertions.assertThatExceptionOfType(UserNameExistsException.class)
                 .isThrownBy(() -> userService.create("Lüder", "12345"))
-                .withMessage("Element with id 'Lüder' already exists.");
+                .withMessage("User with name 'Lüder' already exists.");
 
     }
 }

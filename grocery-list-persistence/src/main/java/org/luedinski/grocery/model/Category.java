@@ -6,10 +6,8 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "categories")
-public class Category {
+public class Category extends AbstractDAO {
 
-    @DatabaseField(generatedId = true)
-    private int id;
     @DatabaseField(canBeNull = false)
     private String name;
     @ForeignCollectionField
@@ -23,10 +21,6 @@ public class Category {
     public Category(String name, User user) {
         this.name = name;
         this.user = user;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getName() {

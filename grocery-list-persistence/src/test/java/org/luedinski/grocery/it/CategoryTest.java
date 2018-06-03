@@ -29,7 +29,7 @@ public class CategoryTest extends AbstractIntegrationTest {
     void testAddCategory() {
         Category getränke = categoryService.create("Getränke", user);
         Assertions.assertThat(getränke.getName()).isEqualTo("Getränke");
-        user = userService.getById("test").orElseThrow(IllegalArgumentException::new);
+        user = userService.getById(user.getId()).orElseThrow(IllegalArgumentException::new);
         Assertions.assertThat(new ArrayList<>(user.getCategories())).hasSize(1).element(0).extracting(Category::getName).containsExactly("Getränke");
     }
 }
