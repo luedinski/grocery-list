@@ -16,8 +16,10 @@ public class Product extends AbstractDAO {
     Product() {
     }
 
-    public Product(String name) {
+    public Product(String name, Category category, User user) {
         this.name = name;
+        this.category = category;
+        this.user = user;
     }
 
     public String getName() {

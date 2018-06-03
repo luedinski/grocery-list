@@ -5,9 +5,11 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import org.luedinski.grocery.model.Category;
+import org.luedinski.grocery.model.Product;
 import org.luedinski.grocery.model.User;
 import org.luedinski.grocery.model.utils.PasswordCrypter;
 import org.luedinski.grocery.service.CategoryService;
+import org.luedinski.grocery.service.ProductService;
 import org.luedinski.grocery.service.UserService;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +72,16 @@ public class GroceryListPersistenceSpringConfiguration {
     }
 
     /**
+     * Creates the bean implementing {@link Dao} for {@link Product Products}.
+     *
+     * @return The {@link Dao}
+     */
+    @Bean
+    Dao<Product, Integer> productDao() {
+        return createDao(Product.class);
+    }
+
+    /**
      * Creates the bean implementing {@link Dao} for {@link User Users}.
      *
      * @return The {@link Dao}
@@ -105,6 +117,16 @@ public class GroceryListPersistenceSpringConfiguration {
     @Bean
     public UserService userService() {
         return new UserService(userDao(), passwordCrypter());
+    }
+
+    /**
+     * Creates the bean implementing {@link UserService}.
+     *
+     * @return The {@link UserService}
+     */
+    @Bean
+    public ProductService productService() {
+        return new ProductService(productDao(), Product.class);
     }
 
     /**
