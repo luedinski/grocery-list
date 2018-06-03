@@ -37,4 +37,11 @@ public class Category {
         this.name = name;
     }
 
+    public ForeignCollection<Product> getProducts() {
+        return products;
+    }
+
+    public User getUser() {
+        return user;
+    }
 }

@@ -6,7 +6,7 @@ import org.luedinski.grocery.model.User;
 
 public class CategoryService extends AbstractModelService<Category, Integer> {
 
-    CategoryService(Dao dao) {
+    public CategoryService(Dao dao) {
         super(dao, Category.class);
     }
 
