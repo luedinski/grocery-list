@@ -2,27 +2,18 @@ package org.luedinski.grocery.it;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.luedinski.grocery.context.GroceryListPersistenceSpringConfiguration;
 import org.luedinski.grocery.model.Category;
 import org.luedinski.grocery.model.User;
 import org.luedinski.grocery.service.CategoryService;
 import org.luedinski.grocery.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {GroceryListPersistenceSpringConfiguration.class})
-@TestPropertySource("/META-INF/test-connection.properties")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@ExtendWith(SpringExtension.class)
-public class CategoryIT {
+@Tag(AbstractIntegrationTest.TAG_NAME)
+public class CategoryTest extends AbstractIntegrationTest {
     @Autowired
     private UserService userService;
     @Autowired
