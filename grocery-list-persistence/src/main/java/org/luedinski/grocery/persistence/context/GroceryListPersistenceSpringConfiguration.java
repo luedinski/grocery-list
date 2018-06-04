@@ -1,14 +1,10 @@
 package org.luedinski.grocery.persistence.context;
 
-import java.sql.SQLException;
-import java.util.Arrays;
-
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import org.luedinski.grocery.persistence.DatabaseInitializer;
-import org.luedinski.grocery.persistence.model.AbstractDAO;
 import org.luedinski.grocery.persistence.model.Category;
 import org.luedinski.grocery.persistence.model.Product;
 import org.luedinski.grocery.persistence.model.User;
@@ -18,6 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+
+import java.sql.SQLException;
 
 /**
  * The spring configuration.
