@@ -11,6 +11,13 @@ public class ProductService extends AbstractModelService<Product, Integer> {
         super(dao, daoClazz);
     }
 
+    /**
+     * Creates a product with the given name, {@link Category} and {@link User}.
+     * @param name The product name
+     * @param category The category
+     * @param user The user
+     * @return The created product
+     */
     public Product create(String name, Category category, User user) {
         Product product = new Product(name, category, user);
         operate(() -> dao.create(product));
