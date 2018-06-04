@@ -2,14 +2,14 @@ package org.luedinski.grocery.model;
 
 import com.j256.ormlite.field.DatabaseField;
 
-abstract class AbstractDAO {
+public abstract class Identifiable {
+
+    Identifiable() {
+
+    }
 
     @DatabaseField(generatedId = true)
     private int id;
-
-    AbstractDAO() {
-
-    }
 
     public int getId() {
         return id;

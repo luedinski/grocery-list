@@ -6,10 +6,8 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "users")
-public class User extends AbstractDAO {
+public class User extends Nameable {
 
-    @DatabaseField(canBeNull = false)
-    private String name;
     @DatabaseField(canBeNull = false)
     private String password;
     @ForeignCollectionField
@@ -25,16 +23,8 @@ public class User extends AbstractDAO {
     }
 
     public User(String name, String password) {
-        this.name = name;
+        super(name);
         this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPassword() {
