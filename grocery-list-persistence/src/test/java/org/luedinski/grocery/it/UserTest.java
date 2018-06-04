@@ -1,15 +1,13 @@
 package org.luedinski.grocery.it;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.luedinski.grocery.UserNameExistsException;
 import org.luedinski.grocery.model.User;
 import org.luedinski.grocery.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-@Tag(AbstractIntegrationTest.TAG_NAME)
 public class UserTest extends AbstractIntegrationTest {
 
     @Autowired
