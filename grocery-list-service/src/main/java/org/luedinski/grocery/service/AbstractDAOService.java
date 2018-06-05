@@ -51,8 +51,12 @@ abstract class AbstractDAOService<M> {
         return operate(() -> dao.idExists(id));
     }
 
-    public void update(M model) {
+    public void save(M model) {
         operate(() -> dao.update(model));
+    }
+
+    public void refresh(M model) {
+        operate(() -> dao.refresh(model));
     }
 
 }

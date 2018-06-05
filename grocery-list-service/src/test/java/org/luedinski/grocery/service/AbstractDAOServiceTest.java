@@ -146,4 +146,20 @@ public class AbstractDAOServiceTest {
         verify(tableFactory).initTable(connectionSource, Object.class);
 
     }
+
+    @Test
+    public void testSave() throws Exception {
+        Object model = new Object();
+        subject.save(model);
+
+        verify(dao).update(model);
+    }
+
+    @Test
+    public void testRefresh() throws Exception {
+        Object model = new Object();
+        subject.refresh(model);
+
+        verify(dao).refresh(model);
+    }
 }
