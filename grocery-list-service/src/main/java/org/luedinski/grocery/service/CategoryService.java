@@ -6,8 +6,8 @@ import org.luedinski.grocery.persistence.model.User;
 
 public class CategoryService extends AbstractDAOService<Category> {
 
-    public CategoryService(Dao<Category, Integer> dao) {
-        super(dao, Category.class);
+    public CategoryService(Dao<Category, Integer> dao, TableFactory tableFactory) {
+        super(dao, tableFactory, Category.class);
     }
 
     public Category create(String name, User user) {

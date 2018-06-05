@@ -8,8 +8,8 @@ public class UserService extends AbstractDAOService<User> {
 
     private final PasswordCrypter passwordCrypter;
 
-    public UserService(Dao<User, Integer> dao, PasswordCrypter passwordCrypter) {
-        super(dao, User.class);
+    public UserService(Dao<User, Integer> dao, TableFactory tableFactory, PasswordCrypter passwordCrypter) {
+        super(dao, tableFactory, User.class);
         this.passwordCrypter = passwordCrypter;
     }
 

@@ -7,12 +7,13 @@ import org.luedinski.grocery.persistence.model.User;
 
 public class ProductService extends AbstractDAOService<Product> {
 
-    public ProductService(Dao<Product, Integer> dao, Class<Product> daoClazz) {
-        super(dao, daoClazz);
+    public ProductService(Dao<Product, Integer> dao, TableFactory tableFactory, Class<Product> daoClazz) {
+        super(dao, tableFactory, daoClazz);
     }
 
     /**
      * Creates a product with the given name, {@link Category} and {@link User}.
+     *
      * @param name The product name
      * @param category The category
      * @param user The user

@@ -2,6 +2,8 @@ package org.luedinski.grocery.service;
 
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
 import javax.annotation.PostConstruct;
 
@@ -13,9 +15,11 @@ abstract class AbstractDAOService<M> {
 
     protected final Dao<M, Integer> dao;
     private final Class<M> daoClazz;
+    private final TableFactory tableFactory;
 
-    AbstractDAOService(Dao<M, Integer> dao, Class<M> daoClazz) {
+    AbstractDAOService(Dao<M, Integer> dao, TableFactory tableFactory, Class<M> daoClazz) {
         this.dao = dao;
+        this.tableFactory = tableFactory;
         this.daoClazz = daoClazz;
     }
 
@@ -23,7 +27,7 @@ abstract class AbstractDAOService<M> {
     public void initTable() {
         ConnectionSource connectionSource = dao.getConnectionSource();
         try {
-            TableUtils.createTableIfNotExists(connectionSource, daoClazz);
+            tableFactory.initTable(connectionSource, daoClazz);
         } catch (SQLException e) {
             throw new IllegalStateException(e);
         }

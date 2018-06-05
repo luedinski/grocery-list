@@ -2,6 +2,8 @@ package org.luedinski.grocery.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -9,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.support.ConnectionSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,11 +25,14 @@ public class AbstractDAOServiceTest {
     @Mock
     private Dao<Object, Integer> dao;
 
+    @Mock
+    private TableFactory tableFactory;
+
     private AbstractDAOService<Object> subject;
 
     @Before
     public void setUp() throws Exception {
-        subject = new AbstractDAOService<Object>(dao, Object.class) {
+        subject = new AbstractDAOService<Object>(dao, tableFactory, Object.class) {
         };
     }
 
@@ -70,7 +76,7 @@ public class AbstractDAOServiceTest {
     }
 
     @Test
-    public void testOperate_excpetion() throws Exception {
+    public void testOperate_exception() throws Exception {
         SQLOperation<String> operation = () -> {
             throw new SQLException("error");
         };
@@ -119,5 +125,16 @@ public class AbstractDAOServiceTest {
         assertThatExceptionOfType(DatabaseOperationException.class).isThrownBy(() -> subject.exists(123))
                 .withCauseExactlyInstanceOf(SQLException.class)
                 .withMessageContaining("error");
+    }
+
+    @Test
+    public void testInitTable() throws Exception {
+        ConnectionSource connectionSource = mock(ConnectionSource.class);
+        when(dao.getConnectionSource()).thenReturn(connectionSource);
+        doThrow(new SQLException("test error")).when(tableFactory).initTable(connectionSource, Object.class);
+        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> subject.initTable())
+                .withCauseExactlyInstanceOf(SQLException.class)
+                .withMessageContaining("test error");
+
     }
 }

@@ -3,6 +3,7 @@ package org.luedinski.grocery.service.context;
 import java.nio.charset.StandardCharsets;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.table.TableUtils;
 import org.luedinski.grocery.persistence.context.GroceryListPersistenceSpringConfiguration;
 import org.luedinski.grocery.persistence.model.Category;
 import org.luedinski.grocery.persistence.model.Product;
@@ -22,8 +23,9 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @PropertySource("classpath:/META-INF/grocery-list-service.properties")
-@Import({GroceryListPersistenceSpringConfiguration.class})
+@Import({ GroceryListPersistenceSpringConfiguration.class })
 public class GroceryListServiceSpringConfiguration {
+
     @Autowired
     private Environment environment;
 
@@ -40,7 +42,7 @@ public class GroceryListServiceSpringConfiguration {
      */
     @Bean
     public CategoryService categoryService(@Autowired Dao<Category, Integer> categoryDao) {
-        return new CategoryService(categoryDao);
+        return new CategoryService(categoryDao, TableUtils::createTableIfNotExists);
     }
 
     /**
@@ -50,7 +52,7 @@ public class GroceryListServiceSpringConfiguration {
      */
     @Bean
     public UserService userService(@Autowired Dao<User, Integer> userDao) {
-        return new UserService(userDao, passwordCrypter());
+        return new UserService(userDao, TableUtils::createTableIfNotExists, passwordCrypter());
     }
 
     /**
@@ -60,7 +62,7 @@ public class GroceryListServiceSpringConfiguration {
      */
     @Bean
     public ProductService productService(@Autowired Dao<Product, Integer> productDao) {
-        return new ProductService(productDao, Product.class);
+        return new ProductService(productDao, TableUtils::createTableIfNotExists, Product.class);
     }
 
     /**
