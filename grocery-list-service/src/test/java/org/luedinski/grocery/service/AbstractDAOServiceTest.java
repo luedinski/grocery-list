@@ -8,13 +8,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
-import java.util.Optional;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.luedinski.grocery.ModelNotFoundException;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -40,9 +40,9 @@ public class AbstractDAOServiceTest {
     public void testGetById() throws Exception {
         Object expected = new Object();
         when(dao.queryForId(123)).thenReturn(expected);
-        Optional<Object> model = subject.getById(123);
+        Object model = subject.getById(123);
 
-        assertThat(model).isPresent().get().isSameAs(expected);
+        assertThat(model).isSameAs(expected);
 
     }
 
@@ -50,9 +50,9 @@ public class AbstractDAOServiceTest {
     public void testGetById_notPresent() throws Exception {
         Object expected = new Object();
         when(dao.queryForId(123)).thenReturn(null);
-        Optional<Object> model = subject.getById(123);
-
-        assertThat(model).isNotPresent();
+        assertThatExceptionOfType(ModelNotFoundException.class)
+                .isThrownBy(() -> subject.getById(123))
+                .withMessage("Object with id'123' not found.");
 
     }
 

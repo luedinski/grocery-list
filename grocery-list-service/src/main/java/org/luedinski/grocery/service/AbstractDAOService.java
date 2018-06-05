@@ -1,12 +1,12 @@
 package org.luedinski.grocery.service;
 
 import java.sql.SQLException;
-import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
+import org.luedinski.grocery.ModelNotFoundException;
 
 abstract class AbstractDAOService<M> {
 
@@ -31,8 +31,12 @@ abstract class AbstractDAOService<M> {
 
     }
 
-    Optional<M> getById(Integer id) {
-        return Optional.ofNullable(operate(() -> dao.queryForId(id)));
+    M getById(Integer id) {
+        M dao = operate(() -> this.dao.queryForId(id));
+        if (dao == null) {
+            throw new ModelNotFoundException(id, daoClazz.getSimpleName());
+        }
+        return dao;
     }
 
     <R> R operate(SQLOperation<R> operation) {

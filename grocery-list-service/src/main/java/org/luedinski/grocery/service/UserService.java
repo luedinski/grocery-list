@@ -52,7 +52,7 @@ public class UserService extends AbstractDAOService<UserDAO> {
     public void changeName(String id, String newName) {
         checkNameExistence(newName);
         int userId = convertId(id);
-        UserDAO userDAO = getUserById(userId);
+        UserDAO userDAO = getById(userId);
         userDAO.setName(newName);
         save(userDAO);
     }
@@ -67,14 +67,10 @@ public class UserService extends AbstractDAOService<UserDAO> {
      */
     public void changePassword(String id, String newPassword) {
         int userId = convertId(id);
-        UserDAO userDAO = getUserById(userId);
+        UserDAO userDAO = getById(userId);
         String cryptedPassword = passwordCrypter.crypt(newPassword);
         userDAO.setPassword(cryptedPassword);
         save(userDAO);
-    }
-
-    private UserDAO getUserById(int userId) {
-        return getById(userId).orElseThrow(() -> new ModelNotFoundException(userId, "User"));
     }
 
 }
