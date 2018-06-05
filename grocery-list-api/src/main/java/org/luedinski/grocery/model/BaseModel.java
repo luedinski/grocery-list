@@ -1,14 +1,21 @@
 package org.luedinski.grocery.model;
 
-import java.io.Serializable;
-
 import com.google.common.base.MoreObjects;
+
+import java.io.Serializable;
 
 abstract class BaseModel implements Serializable {
 
     private final String id;
     private final String name;
     private final String version;
+
+    BaseModel() {
+        // for serialization
+        id = null;
+        name = null;
+        version = null;
+    }
 
     BaseModel(String id, String name, String version) {
         this.id = id;
