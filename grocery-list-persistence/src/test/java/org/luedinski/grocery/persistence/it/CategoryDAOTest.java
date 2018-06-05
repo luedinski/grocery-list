@@ -1,5 +1,8 @@
 package org.luedinski.grocery.persistence.it;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.j256.ormlite.dao.Dao;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -24,5 +27,14 @@ public class CategoryDAOTest extends AbstractIntegrationTest {
         int i = categoryDao.create(categoryDAO);
         Assertions.assertThat(i).isEqualByComparingTo(1);
         Assertions.assertThat(categoryDAO).extracting(AbstractDAO::getName, CategoryDAO::getUser).containsExactly("test", userDAO);
+
+        userDao.refresh(userDAO);
+        List<CategoryDAO> categoryDAOs = new ArrayList<>(userDAO.getCategories());
+        Assertions.assertThat(categoryDAOs)
+                .hasSize(1)
+                .element(0)
+                .extracting(CategoryDAO::getId, CategoryDAO::getName)
+                .containsExactly(categoryDAO.getId(), "test");
+
     }
 }

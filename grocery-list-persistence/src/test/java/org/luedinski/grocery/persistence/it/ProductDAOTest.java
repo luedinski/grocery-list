@@ -46,7 +46,6 @@ public class ProductDAOTest extends AbstractIntegrationTest {
             Assertions.assertThat(p.getName()).isEqualTo("Apples");
         });
 
-
     }
 
     @Test
@@ -83,6 +82,7 @@ public class ProductDAOTest extends AbstractIntegrationTest {
         productDao.update(apples);
 
         Assertions.assertThat(apples.getLastModified()).isAfter(creationDate);
+        Assertions.assertThat(apples.getCategory()).isSameAs(fruitsCategoryDAO);
 
         userDao.refresh(userDAO);
         userProductDAOS = new ArrayList<>(userDAO.getProducts());
