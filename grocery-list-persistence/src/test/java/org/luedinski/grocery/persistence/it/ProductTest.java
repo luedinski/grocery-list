@@ -1,6 +1,7 @@
 package org.luedinski.grocery.persistence.it;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.j256.ormlite.dao.Dao;
@@ -58,6 +59,8 @@ public class ProductTest extends AbstractIntegrationTest {
         categoryDao.create(fruitsCategory);
         Product apples = new Product("Apples", miscCategory, user);
         productDao.create(apples);
+        Date creationDate = apples.getLastModified();
+        Assertions.assertThat(creationDate).isNotNull();
 
         Assertions.assertThat(apples.getName()).isEqualToIgnoringCase("Apples");
 
@@ -78,6 +81,8 @@ public class ProductTest extends AbstractIntegrationTest {
         apples.setName("Red Apples");
         apples.setCategory(fruitsCategory);
         productDao.update(apples);
+
+        Assertions.assertThat(apples.getLastModified()).isAfter(creationDate);
 
         userDao.refresh(user);
         userProducts = new ArrayList<>(user.getProducts());

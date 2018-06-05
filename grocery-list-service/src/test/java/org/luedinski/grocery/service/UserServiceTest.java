@@ -40,7 +40,6 @@ public class UserServiceTest {
         User user = subject.create("name", "pw");
 
         Assertions.assertThat(user).extracting(User::getName, User::getPassword).containsExactly("name", "wp");
-        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
         verify(dao).create(same(user));
     }
 
