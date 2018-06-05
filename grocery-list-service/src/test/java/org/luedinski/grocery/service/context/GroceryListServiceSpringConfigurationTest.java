@@ -1,6 +1,5 @@
 package org.luedinski.grocery.service.context;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 import org.assertj.core.api.Assertions;
@@ -10,8 +9,9 @@ import org.luedinski.grocery.service.utils.PasswordCrypter;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.context.support.MessageSourceSupport;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GroceryListServiceSpringConfigurationTest {
@@ -27,5 +27,15 @@ public class GroceryListServiceSpringConfigurationTest {
         when(environment.getProperty("password.salt.iterations", Integer.class)).thenReturn(4);
         PasswordCrypter passwordCrypter = subject.passwordCrypter();
         Assertions.assertThat(passwordCrypter).isNotNull();
+    }
+
+    @Test
+    public void testMessageSource() {
+        MessageSourceSupport messageSource = subject.messageSource();
+        Assertions.assertThat(messageSource)
+                .isInstanceOfSatisfying(ReloadableResourceBundleMessageSource.class, ms -> {
+                    Assertions.assertThat(ms.getBasenameSet()).containsExactly("META-INF/i18n/translations");
+                    Assertions.assertThat(ms).extracting("cacheMillis", "defaultEncoding").containsExactly(-1000L, "UTF-8");
+                });
     }
 }
