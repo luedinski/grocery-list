@@ -20,7 +20,6 @@ public class CategoryController {
     @RequestMapping(value = "/user/{userId}/categories/", method = RequestMethod.GET)
     @ResponseBody
     public List<Category> getCategories(@PathVariable String userId) {
-        userService.
         return Collections.singletonList(new Category("123", "Misc", "1"));
     }
 
