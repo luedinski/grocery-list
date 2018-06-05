@@ -15,7 +15,6 @@ import com.j256.ormlite.support.ConnectionSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -33,6 +32,7 @@ public class AbstractDAOServiceTest {
     @Before
     public void setUp() throws Exception {
         subject = new AbstractDAOService<Object>(dao, tableFactory, Object.class) {
+
         };
     }
 
@@ -65,7 +65,6 @@ public class AbstractDAOServiceTest {
                 .isThrownBy(() -> subject.getById(123))
                 .withCauseExactlyInstanceOf(SQLException.class)
                 .withMessageContaining("error");
-
 
     }
 
@@ -128,13 +127,23 @@ public class AbstractDAOServiceTest {
     }
 
     @Test
-    public void testInitTable() throws Exception {
+    public void testInitTable_initFails() throws Exception {
         ConnectionSource connectionSource = mock(ConnectionSource.class);
         when(dao.getConnectionSource()).thenReturn(connectionSource);
         doThrow(new SQLException("test error")).when(tableFactory).initTable(connectionSource, Object.class);
         assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> subject.initTable())
                 .withCauseExactlyInstanceOf(SQLException.class)
                 .withMessageContaining("test error");
+
+    }
+
+    @Test
+    public void testInitTable() throws Exception {
+        ConnectionSource connectionSource = mock(ConnectionSource.class);
+        when(dao.getConnectionSource()).thenReturn(connectionSource);
+        subject.initTable();
+
+        verify(tableFactory).initTable(connectionSource, Object.class);
 
     }
 }

@@ -2,14 +2,11 @@ package org.luedinski.grocery.service;
 
 import java.sql.SQLException;
 import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 
 import javax.annotation.PostConstruct;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
-import com.j256.ormlite.table.TableUtils;
 
 abstract class AbstractDAOService<M> {
 
