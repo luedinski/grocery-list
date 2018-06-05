@@ -4,9 +4,8 @@ import com.j256.ormlite.dao.Dao;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.luedinski.grocery.persistence.model.User;
+import org.luedinski.grocery.persistence.model.UserDAO;
 import org.luedinski.grocery.service.utils.PasswordCrypter;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -27,7 +26,7 @@ public class UserServiceTest {
     private PasswordCrypter passwordCrypter;
 
     @Mock
-    private Dao<User, String> dao;
+    private Dao<UserDAO, String> dao;
 
     @InjectMocks
     private UserService subject;
@@ -35,26 +34,26 @@ public class UserServiceTest {
     @Test
     public void testCreate() throws Exception {
         when(passwordCrypter.crypt(anyString())).thenAnswer(inv -> new StringBuilder(inv.getArgumentAt(0, String.class)).reverse().toString());
-        when(dao.queryForEq("name", "name")).thenReturn(Collections.emptyList(), Collections.singletonList(new User("name", "pw1")));
-        when(dao.create(any(User.class))).thenReturn(1);
-        User user = subject.create("name", "pw");
+        when(dao.queryForEq("name", "name")).thenReturn(Collections.emptyList(), Collections.singletonList(new UserDAO("name", "pw1")));
+        when(dao.create(any(UserDAO.class))).thenReturn(1);
+        UserDAO userDAO = subject.create("name", "pw");
 
-        Assertions.assertThat(user).extracting(User::getName, User::getPassword).containsExactly("name", "wp");
-        verify(dao).create(same(user));
+        Assertions.assertThat(userDAO).extracting(UserDAO::getName, UserDAO::getPassword).containsExactly("name", "wp");
+        verify(dao).create(same(userDAO));
     }
 
     @Test
     public  void testCreate_IdInUse() throws Exception {
-        when(dao.queryForEq("name", "name")).thenReturn(Collections.singletonList(new User("name", "pw1")));
+        when(dao.queryForEq("name", "name")).thenReturn(Collections.singletonList(new UserDAO("name", "pw1")));
         Assertions.assertThatExceptionOfType(UserNameExistsException.class)
                 .isThrownBy(() -> subject.create("name", "pw"))
-                .withMessage("User with name 'name' already exists.");
+                .withMessage("UserDAO with name 'name' already exists.");
     }
 
     @Test
     public  void testCreate_notAdded() throws Exception {
         when(dao.queryForEq("name", "name")).thenReturn(Collections.emptyList());
-        when(dao.create(any(User.class))).thenThrow(new SQLException("error"));
+        when(dao.create(any(UserDAO.class))).thenThrow(new SQLException("error"));
         when(passwordCrypter.crypt(anyString())).thenAnswer(inv -> new StringBuilder(inv.getArgumentAt(0, String.class)).reverse().toString());
         Assertions.assertThatExceptionOfType(DatabaseOperationException.class)
                 .isThrownBy(() -> subject.create("name", "pw"))

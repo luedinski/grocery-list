@@ -3,25 +3,25 @@ package org.luedinski.grocery.persistence.it;
 import com.j256.ormlite.dao.Dao;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
-import org.luedinski.grocery.persistence.model.User;
+import org.luedinski.grocery.persistence.model.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class UserTest extends AbstractIntegrationTest {
+public class UserDAOTest extends AbstractIntegrationTest {
 
     @Autowired
-    private Dao<User, Integer> userDao;
+    private Dao<UserDAO, Integer> userDao;
 
     @Test
     public void testCreateUser() throws Exception {
-        User user = new User("peter", "1234");
-        int i = userDao.create(user);
+        UserDAO userDAO = new UserDAO("peter", "1234");
+        int i = userDao.create(userDAO);
         Assertions.assertThat(i).isEqualByComparingTo(1);
-        Assertions.assertThat(user.getId()).isGreaterThan(0);
-        Assertions.assertThat(user.getName()).isEqualTo("peter");
-        Assertions.assertThat(user.getPassword()).isEqualTo("1234");
-        //        Assertions.assertThat(new ArrayList<>(user.getLists())).isEmpty();
+        Assertions.assertThat(userDAO.getId()).isGreaterThan(0);
+        Assertions.assertThat(userDAO.getName()).isEqualTo("peter");
+        Assertions.assertThat(userDAO.getPassword()).isEqualTo("1234");
+        //        Assertions.assertThat(new ArrayList<>(userDAO.getLists())).isEmpty();
         //
-        //        TodoList list = todoListService.create("My first list", user);
+        //        TodoList list = todoListService.create("My first list", userDAO);
         //        Assertions.assertThat(list.getName()).isEqualTo("My first list");
         //        Assertions.assertThat(list.getUser().getId()).isEqualTo("Lüder");
         //
@@ -47,16 +47,16 @@ public class UserTest extends AbstractIntegrationTest {
 
     @Test
     public void testChangeName() throws Exception {
-        User user = new User("peter", "1234");
-        userDao.create(user);
-        Assertions.assertThat(user.getName()).isEqualTo("peter");
+        UserDAO userDAO = new UserDAO("peter", "1234");
+        userDao.create(userDAO);
+        Assertions.assertThat(userDAO.getName()).isEqualTo("peter");
 
-        user.setName("horst");
-        user.setPassword("4321");
-        userDao.update(user);
+        userDAO.setName("horst");
+        userDAO.setPassword("4321");
+        userDao.update(userDAO);
 
-        User updatedUser = userDao.queryForId(user.getId());
-        Assertions.assertThat(updatedUser).extracting(User::getId, User::getName, User::getPassword).containsExactly(user.getId(), "horst", "4321");
+        UserDAO updatedUserDAO = userDao.queryForId(userDAO.getId());
+        Assertions.assertThat(updatedUserDAO).extracting(UserDAO::getId, UserDAO::getName, UserDAO::getPassword).containsExactly(userDAO.getId(), "horst", "4321");
 
     }
 }

@@ -5,9 +5,9 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import org.luedinski.grocery.persistence.DatabaseInitializer;
-import org.luedinski.grocery.persistence.model.Category;
-import org.luedinski.grocery.persistence.model.Product;
-import org.luedinski.grocery.persistence.model.User;
+import org.luedinski.grocery.persistence.model.CategoryDAO;
+import org.luedinski.grocery.persistence.model.ProductDAO;
+import org.luedinski.grocery.persistence.model.UserDAO;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -51,38 +51,38 @@ public class GroceryListPersistenceSpringConfiguration {
     }
 
     /**
-     * Creates the bean implementing {@link Dao} for {@link User Users}.
+     * Creates the bean implementing {@link Dao} for {@link UserDAO Users}.
      *
      * @return The {@link Dao}
      */
     @Bean("categoryDao")
-    Dao<Category, Integer> categoryDao() {
-        return createDao(Category.class);
+    Dao<CategoryDAO, Integer> categoryDao() {
+        return createDao(CategoryDAO.class);
     }
 
     /**
-     * Creates the bean implementing {@link Dao} for {@link Product Products}.
+     * Creates the bean implementing {@link Dao} for {@link ProductDAO Products}.
      *
      * @return The {@link Dao}
      */
     @Bean("productDao")
-    Dao<Product, Integer> productDao() {
-        return createDao(Product.class);
+    Dao<ProductDAO, Integer> productDao() {
+        return createDao(ProductDAO.class);
     }
 
     /**
-     * Creates the bean implementing {@link Dao} for {@link User Users}.
+     * Creates the bean implementing {@link Dao} for {@link UserDAO Users}.
      *
      * @return The {@link Dao}
      */
     @Bean("userDao")
-    Dao<User, Integer> userDao() {
-        return createDao(User.class);
+    Dao<UserDAO, Integer> userDao() {
+        return createDao(UserDAO.class);
     }
 
     @Bean
     DatabaseInitializer databaseInitializer() {
-        return new DatabaseInitializer(connectionSource(), User.class, Category.class, Product.class);
+        return new DatabaseInitializer(connectionSource(), UserDAO.class, CategoryDAO.class, ProductDAO.class);
     }
 
     private <M, I> Dao<M, I> createDao(Class<M> clazz) {

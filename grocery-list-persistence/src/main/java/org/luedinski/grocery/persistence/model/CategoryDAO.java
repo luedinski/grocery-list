@@ -6,26 +6,26 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "categories")
-public class Category extends AbstractDAO {
+public class CategoryDAO extends AbstractDAO {
 
     @ForeignCollectionField
-    private ForeignCollection<Product> products;
+    private ForeignCollection<ProductDAO> productDAOS;
     @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "user_id")
-    private User user;
+    private UserDAO userDAO;
 
-    Category() {
+    CategoryDAO() {
     }
 
-    public Category(String name, User user) {
+    public CategoryDAO(String name, UserDAO userDAO) {
         super(name);
-        this.user = user;
+        this.userDAO = userDAO;
     }
 
-    public ForeignCollection<Product> getProducts() {
-        return products;
+    public ForeignCollection<ProductDAO> getProducts() {
+        return productDAOS;
     }
 
-    public User getUser() {
-        return user;
+    public UserDAO getUser() {
+        return userDAO;
     }
 }

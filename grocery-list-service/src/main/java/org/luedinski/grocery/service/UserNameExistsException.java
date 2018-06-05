@@ -6,6 +6,6 @@ package org.luedinski.grocery.service;
 public class UserNameExistsException extends RuntimeException {
 
     public UserNameExistsException(String name) {
-        super("User with name '" + name + "' already exists.");
+        super("UserDAO with name '" + name + "' already exists.");
     }
 }

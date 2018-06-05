@@ -6,23 +6,23 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "users")
-public class User extends AbstractDAO {
+public class UserDAO extends AbstractDAO {
 
     @DatabaseField(canBeNull = false)
     private String password;
     @ForeignCollectionField
-    private ForeignCollection<Category> categories;
+    private ForeignCollection<CategoryDAO> categories;
     @ForeignCollectionField
-    private ForeignCollection<Product> products;
+    private ForeignCollection<ProductDAO> productDAOS;
     //    @ForeignCollectionField
-    //    private ForeignCollection<GroceryList> groceryLists;
+    //    private ForeignCollection<GroceryListDAO> groceryLists;
     //    @ForeignCollectionField
-    //    private ForeignCollection<StockList> stockLists;
+    //    private ForeignCollection<StockListDAO> stockLists;
 
-    User() {
+    UserDAO() {
     }
 
-    public User(String name, String password) {
+    public UserDAO(String name, String password) {
         super(name);
         this.password = password;
     }
@@ -35,19 +35,19 @@ public class User extends AbstractDAO {
         this.password = password;
     }
 
-    public ForeignCollection<Category> getCategories() {
+    public ForeignCollection<CategoryDAO> getCategories() {
         return categories;
     }
 
-    public ForeignCollection<Product> getProducts() {
-        return products;
+    public ForeignCollection<ProductDAO> getProducts() {
+        return productDAOS;
     }
 
-    //    public ForeignCollection<GroceryList> getGroceryLists() {
+    //    public ForeignCollection<GroceryListDAO> getGroceryLists() {
     //        return groceryLists;
     //    }
     //
-    //    public ForeignCollection<StockList> getStockLists() {
+    //    public ForeignCollection<StockListDAO> getStockLists() {
     //        return stockLists;
     //    }
 }

@@ -9,7 +9,7 @@ import com.j256.ormlite.db.DatabaseType;
 import com.j256.ormlite.support.ConnectionSource;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
-import org.luedinski.grocery.persistence.model.User;
+import org.luedinski.grocery.persistence.model.UserDAO;
 
 public class DatabaseInitializerTest {
 
@@ -18,8 +18,8 @@ public class DatabaseInitializerTest {
         ConnectionSource source = mock(ConnectionSource.class);
         DatabaseType dbType = mock(DatabaseType.class);
         when(source.getDatabaseType()).thenReturn(dbType);
-        when(dbType.extractDatabaseTableConfig(source, User.class)).thenThrow(new SQLException("test error"));
-        DatabaseInitializer subject = new DatabaseInitializer(source, User.class);
+        when(dbType.extractDatabaseTableConfig(source, UserDAO.class)).thenThrow(new SQLException("test error"));
+        DatabaseInitializer subject = new DatabaseInitializer(source, UserDAO.class);
         Assertions.assertThatExceptionOfType(IllegalStateException.class).isThrownBy(subject::init)
                 .withCauseExactlyInstanceOf(SQLException.class)
                 .withMessageContaining("test error");

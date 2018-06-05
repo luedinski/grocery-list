@@ -5,9 +5,9 @@ import java.nio.charset.StandardCharsets;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.table.TableUtils;
 import org.luedinski.grocery.persistence.context.GroceryListPersistenceSpringConfiguration;
-import org.luedinski.grocery.persistence.model.Category;
-import org.luedinski.grocery.persistence.model.Product;
-import org.luedinski.grocery.persistence.model.User;
+import org.luedinski.grocery.persistence.model.CategoryDAO;
+import org.luedinski.grocery.persistence.model.ProductDAO;
+import org.luedinski.grocery.persistence.model.UserDAO;
 import org.luedinski.grocery.service.CategoryService;
 import org.luedinski.grocery.service.ProductService;
 import org.luedinski.grocery.service.UserService;
@@ -41,7 +41,7 @@ public class GroceryListServiceSpringConfiguration {
      * @return The {@link CategoryService}
      */
     @Bean
-    public CategoryService categoryService(@Autowired Dao<Category, Integer> categoryDao) {
+    public CategoryService categoryService(@Autowired Dao<CategoryDAO, Integer> categoryDao) {
         return new CategoryService(categoryDao, TableUtils::createTableIfNotExists);
     }
 
@@ -51,7 +51,7 @@ public class GroceryListServiceSpringConfiguration {
      * @return The {@link UserService}
      */
     @Bean
-    public UserService userService(@Autowired Dao<User, Integer> userDao) {
+    public UserService userService(@Autowired Dao<UserDAO, Integer> userDao) {
         return new UserService(userDao, TableUtils::createTableIfNotExists, passwordCrypter());
     }
 
@@ -61,8 +61,8 @@ public class GroceryListServiceSpringConfiguration {
      * @return The {@link UserService}
      */
     @Bean
-    public ProductService productService(@Autowired Dao<Product, Integer> productDao) {
-        return new ProductService(productDao, TableUtils::createTableIfNotExists, Product.class);
+    public ProductService productService(@Autowired Dao<ProductDAO, Integer> productDao) {
+        return new ProductService(productDao, TableUtils::createTableIfNotExists, ProductDAO.class);
     }
 
     /**

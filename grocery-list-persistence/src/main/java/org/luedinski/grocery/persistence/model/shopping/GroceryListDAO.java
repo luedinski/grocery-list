@@ -1,5 +1,5 @@
 package org.luedinski.grocery.persistence.model.shopping;
 
-public class GroceryListEntry {
+public class GroceryListDAO {
 
 }

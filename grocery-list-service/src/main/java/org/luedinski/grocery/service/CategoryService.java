@@ -1,18 +1,18 @@
 package org.luedinski.grocery.service;
 
 import com.j256.ormlite.dao.Dao;
-import org.luedinski.grocery.persistence.model.Category;
-import org.luedinski.grocery.persistence.model.User;
+import org.luedinski.grocery.persistence.model.CategoryDAO;
+import org.luedinski.grocery.persistence.model.UserDAO;
 
-public class CategoryService extends AbstractDAOService<Category> {
+public class CategoryService extends AbstractDAOService<CategoryDAO> {
 
-    public CategoryService(Dao<Category, Integer> dao, TableFactory tableFactory) {
-        super(dao, tableFactory, Category.class);
+    public CategoryService(Dao<CategoryDAO, Integer> dao, TableFactory tableFactory) {
+        super(dao, tableFactory, CategoryDAO.class);
     }
 
-    public Category create(String name, User user) {
-        Category category = new Category(name, user);
-        create(category);
-        return category;
+    public CategoryDAO create(String name, UserDAO userDAO) {
+        CategoryDAO categoryDAO = new CategoryDAO(name, userDAO);
+        create(categoryDAO);
+        return categoryDAO;
     }
 }
