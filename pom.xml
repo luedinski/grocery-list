@@ -21,8 +21,9 @@
     </properties>
 
     <modules>
-        <module>grocery-list-service</module>
+        <module>grocery-list-api</module>
         <module>grocery-list-persistence</module>
+        <module>grocery-list-service</module>
         <module>grocery-list-rest</module>
         <module>grocery-list-boot</module>
         <module>grocery-list-webapp</module>
@@ -30,6 +31,26 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.luedinski</groupId>
+                <artifactId>grocery-list-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.luedinski</groupId>
+                <artifactId>grocery-list-persistence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.luedinski</groupId>
+                <artifactId>grocery-list-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.luedinski</groupId>
+                <artifactId>grocery-list-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>io.spring.platform</groupId>
                 <artifactId>platform-bom</artifactId>
@@ -46,6 +67,11 @@
                 <groupId>com.j256.ormlite</groupId>
                 <artifactId>ormlite-jdbc</artifactId>
                 <version>${orm.lite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>25.1-jre</version>
             </dependency>
             <!-- Test -->
             <dependency>

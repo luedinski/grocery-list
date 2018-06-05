@@ -31,7 +31,7 @@ abstract class AbstractDAOService<M> {
 
     }
 
-    public Optional<M> getById(Integer id) {
+    Optional<M> getById(Integer id) {
         return Optional.ofNullable(operate(() -> dao.queryForId(id)));
     }
 
@@ -51,12 +51,20 @@ abstract class AbstractDAOService<M> {
         return operate(() -> dao.idExists(id));
     }
 
-    public void save(M model) {
+    void save(M model) {
         operate(() -> dao.update(model));
     }
 
-    public void refresh(M model) {
+    void refresh(M model) {
         operate(() -> dao.refresh(model));
+    }
+
+    int convertId(String id) {
+        try {
+            return Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Id '" + id + "' is not a number", e);
+        }
     }
 
 }
