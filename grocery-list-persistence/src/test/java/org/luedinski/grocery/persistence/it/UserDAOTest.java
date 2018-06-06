@@ -3,7 +3,7 @@ package org.luedinski.grocery.persistence.it;
 import com.j256.ormlite.dao.Dao;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
-import org.luedinski.grocery.persistence.model.UserDAO;
+import org.luedinski.grocery.persistence.dao.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserDAOTest extends AbstractIntegrationTest {

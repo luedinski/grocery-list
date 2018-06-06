@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.luedinski.grocery.model.Category;
-import org.luedinski.grocery.service.CategoryService;
+import org.luedinski.grocery.persistence.repo.CategoryRepository;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -27,7 +27,7 @@ public class CategoryControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private CategoryService categoryService;
+    private CategoryRepository categoryRepository;
 
     private ObjectMapper objectMapper;
 

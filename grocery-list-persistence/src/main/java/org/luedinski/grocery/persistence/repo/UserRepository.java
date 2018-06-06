@@ -1,31 +1,26 @@
-package org.luedinski.grocery.service;
+package org.luedinski.grocery.persistence.repo;
 
 import com.j256.ormlite.dao.Dao;
-import org.luedinski.grocery.UserNameExistsException;
-import org.luedinski.grocery.ModelNotFoundException;
-import org.luedinski.grocery.persistence.model.UserDAO;
-import org.luedinski.grocery.service.utils.PasswordCrypter;
+import org.luedinski.grocery.persistence.DAONotFoundException;
+import org.luedinski.grocery.persistence.UserNameExistsException;
+import org.luedinski.grocery.persistence.dao.UserDAO;
 
-public class UserService extends AbstractDAOService<UserDAO> {
+public class UserRepository extends AbstractCrudRepository<UserDAO> {
 
-    private final PasswordCrypter passwordCrypter;
-
-    public UserService(Dao<UserDAO, Integer> dao, TableFactory tableFactory, PasswordCrypter passwordCrypter) {
+    public UserRepository(Dao<UserDAO, Integer> dao, TableFactory tableFactory) {
         super(dao, tableFactory, UserDAO.class);
-        this.passwordCrypter = passwordCrypter;
     }
 
     /**
      * Creates user with the given name and password.
      *
-     * @param name The user name
-     * @param plainTextPassword The password
+     * @param name     The user name
+     * @param password The password
      * @return The user id
      * @throws UserNameExistsException thrown if a user with the given name already exists.
      */
-    public String create(String name, String plainTextPassword) {
+    public String create(String name, String password) {
         checkNameExistence(name);
-        String password = passwordCrypter.crypt(plainTextPassword);
         UserDAO userDAO = new UserDAO(name, password);
         create(userDAO);
         return String.valueOf(userDAO.getId());
@@ -44,10 +39,10 @@ public class UserService extends AbstractDAOService<UserDAO> {
     /**
      * Changes the name of the user with the given id.
      *
-     * @param id The user id
+     * @param id      The user id
      * @param newName The new name
      * @throws UserNameExistsException thrown if a user with the given name already exists.
-     * @throws ModelNotFoundException thrown if no user exists with the given id.
+     * @throws DAONotFoundException    thrown if no user exists with the given id.
      */
     public void changeName(String id, String newName) {
         checkNameExistence(newName);
@@ -60,16 +55,15 @@ public class UserService extends AbstractDAOService<UserDAO> {
     /**
      * Changes the password of the user with the given id.
      *
-     * @param id The user id
+     * @param id          The user id
      * @param newPassword The new pasword
      * @throws UserNameExistsException thrown if a user with the given name already exists.
-     * @throws ModelNotFoundException thrown if no user exists with the given id.
+     * @throws DAONotFoundException    thrown if no user exists with the given id.
      */
     public void changePassword(String id, String newPassword) {
         int userId = convertId(id);
         UserDAO userDAO = getById(userId);
-        String cryptedPassword = passwordCrypter.crypt(newPassword);
-        userDAO.setPassword(cryptedPassword);
+        userDAO.setPassword(newPassword);
         save(userDAO);
     }
 

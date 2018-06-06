@@ -1,22 +1,22 @@
-package org.luedinski.grocery.service;
+package org.luedinski.grocery.persistence.repo;
 
 import com.j256.ormlite.dao.Dao;
-import org.luedinski.grocery.persistence.model.CategoryDAO;
-import org.luedinski.grocery.persistence.model.ProductDAO;
-import org.luedinski.grocery.persistence.model.UserDAO;
+import org.luedinski.grocery.persistence.dao.CategoryDAO;
+import org.luedinski.grocery.persistence.dao.ProductDAO;
+import org.luedinski.grocery.persistence.dao.UserDAO;
 
-public class ProductService extends AbstractDAOService<ProductDAO> {
+public class ProductRepository extends AbstractCrudRepository<ProductDAO> {
 
-    public ProductService(Dao<ProductDAO, Integer> dao, TableFactory tableFactory, Class<ProductDAO> daoClazz) {
+    public ProductRepository(Dao<ProductDAO, Integer> dao, TableFactory tableFactory, Class<ProductDAO> daoClazz) {
         super(dao, tableFactory, daoClazz);
     }
 
     /**
      * Creates a product with the given name, {@link CategoryDAO} and {@link UserDAO}.
      *
-     * @param name The product name
+     * @param name        The product name
      * @param categoryDAO The categoryDAO
-     * @param userDAO The userDAO
+     * @param userDAO     The userDAO
      * @return The created product
      */
     public ProductDAO create(String name, CategoryDAO categoryDAO, UserDAO userDAO) {

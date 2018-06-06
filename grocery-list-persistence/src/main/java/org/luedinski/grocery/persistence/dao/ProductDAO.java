@@ -1,4 +1,4 @@
-package org.luedinski.grocery.persistence.model;
+package org.luedinski.grocery.persistence.dao;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;

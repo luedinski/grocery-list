@@ -4,10 +4,14 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 import org.luedinski.grocery.persistence.DatabaseInitializer;
-import org.luedinski.grocery.persistence.model.CategoryDAO;
-import org.luedinski.grocery.persistence.model.ProductDAO;
-import org.luedinski.grocery.persistence.model.UserDAO;
+import org.luedinski.grocery.persistence.dao.CategoryDAO;
+import org.luedinski.grocery.persistence.dao.ProductDAO;
+import org.luedinski.grocery.persistence.dao.UserDAO;
+import org.luedinski.grocery.persistence.repo.CategoryRepository;
+import org.luedinski.grocery.persistence.repo.ProductRepository;
+import org.luedinski.grocery.persistence.repo.UserRepository;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -92,5 +96,36 @@ public class GroceryListPersistenceSpringConfiguration {
             throw new BeanCreationException("Dao creation of " + clazz + " failed", e);
         }
     }
+
+    /**
+     * Creates the bean implementing {@link CategoryRepository}.
+     *
+     * @return The {@link CategoryRepository}
+     */
+    @Bean
+    public CategoryRepository categoryService() {
+        return new CategoryRepository(categoryDao(), TableUtils::createTableIfNotExists);
+    }
+
+    /**
+     * Creates the bean implementing {@link UserRepository}.
+     *
+     * @return The {@link UserRepository}
+     */
+    @Bean
+    public UserRepository userService() {
+        return new UserRepository(userDao(), TableUtils::createTableIfNotExists);
+    }
+
+    /**
+     * Creates the bean implementing {@link UserRepository}.
+     *
+     * @return The {@link UserRepository}
+     */
+    @Bean
+    public ProductRepository productService() {
+        return new ProductRepository(productDao(), TableUtils::createTableIfNotExists, ProductDAO.class);
+    }
+
 
 }

@@ -1,20 +1,19 @@
-package org.luedinski.grocery.service;
-
-import java.sql.SQLException;
-
-import javax.annotation.PostConstruct;
+package org.luedinski.grocery.persistence.repo;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
-import org.luedinski.grocery.ModelNotFoundException;
+import org.luedinski.grocery.persistence.DAONotFoundException;
 
-abstract class AbstractDAOService<M> {
+import javax.annotation.PostConstruct;
+import java.sql.SQLException;
+
+abstract class AbstractCrudRepository<M> {
 
     protected final Dao<M, Integer> dao;
     private final Class<M> daoClazz;
     private final TableFactory tableFactory;
 
-    AbstractDAOService(Dao<M, Integer> dao, TableFactory tableFactory, Class<M> daoClazz) {
+    AbstractCrudRepository(Dao<M, Integer> dao, TableFactory tableFactory, Class<M> daoClazz) {
         this.dao = dao;
         this.tableFactory = tableFactory;
         this.daoClazz = daoClazz;
@@ -34,7 +33,7 @@ abstract class AbstractDAOService<M> {
     M getById(Integer id) {
         M dao = operate(() -> this.dao.queryForId(id));
         if (dao == null) {
-            throw new ModelNotFoundException(id, daoClazz.getSimpleName());
+            throw new DAONotFoundException(id, daoClazz.getSimpleName());
         }
         return dao;
     }

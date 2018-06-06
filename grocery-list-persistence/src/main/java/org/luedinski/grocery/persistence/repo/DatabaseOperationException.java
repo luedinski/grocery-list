@@ -1,4 +1,4 @@
-package org.luedinski.grocery.service;
+package org.luedinski.grocery.persistence.repo;
 
 public class DatabaseOperationException extends RuntimeException {
 

@@ -1,31 +1,31 @@
-package org.luedinski.grocery.service;
-
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.sql.SQLException;
+package org.luedinski.grocery.persistence.repo;
 
 import com.j256.ormlite.dao.Dao;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.luedinski.grocery.persistence.model.CategoryDAO;
-import org.luedinski.grocery.persistence.model.ProductDAO;
-import org.luedinski.grocery.persistence.model.UserDAO;
+import org.luedinski.grocery.persistence.dao.CategoryDAO;
+import org.luedinski.grocery.persistence.dao.ProductDAO;
+import org.luedinski.grocery.persistence.dao.UserDAO;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.sql.SQLException;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
-public class ProductServiceTest {
+public class ProductRepositoryTest {
 
     @Mock
     private Dao<ProductDAO, Integer> dao;
 
     @InjectMocks
-    private ProductService subject;
+    private ProductRepository subject;
 
     @Test
     public void testCreate() throws Exception {

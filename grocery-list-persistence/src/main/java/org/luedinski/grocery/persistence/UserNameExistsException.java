@@ -1,7 +1,7 @@
-package org.luedinski.grocery;
+package org.luedinski.grocery.persistence;
 
 /**
- * Thrown if creation of a model fails due to an existing id.
+ * Thrown if creation of a dao fails due to an existing id.
  */
 public class UserNameExistsException extends RuntimeException {
 

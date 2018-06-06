@@ -1,21 +1,12 @@
-package org.luedinski.grocery.persistence.model;
+package org.luedinski.grocery.persistence.dao;
 
-
-import java.util.Date;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
+import java.util.Date;
+
 public abstract class AbstractDAO {
-
-    AbstractDAO() {
-
-    }
-
-    protected AbstractDAO(String name) {
-        this.name = name;
-        this.id = null;
-    }
 
     @DatabaseField(generatedId = true)
     private Integer id;
@@ -24,6 +15,15 @@ public abstract class AbstractDAO {
     @DatabaseField(version = true, dataType = DataType.DATE_LONG)
     private Date lastModified;
 
+    AbstractDAO() {
+
+    }
+
+    protected AbstractDAO(String name) {
+        this.name = name;
+        this.id = null;
+        this.lastModified = null;
+    }
 
     public int getId() {
         return id;

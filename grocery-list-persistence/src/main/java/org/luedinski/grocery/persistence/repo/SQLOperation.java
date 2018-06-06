@@ -1,9 +1,9 @@
-package org.luedinski.grocery.service;
+package org.luedinski.grocery.persistence.repo;
 
 import java.sql.SQLException;
 
 @FunctionalInterface
 public interface SQLOperation<R> {
 
-    public R apply() throws SQLException;
+    R apply() throws SQLException;
 }

@@ -1,25 +1,22 @@
-package org.luedinski.grocery.service;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.sql.SQLException;
+package org.luedinski.grocery.persistence.repo;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.luedinski.grocery.ModelNotFoundException;
+import org.luedinski.grocery.persistence.DAONotFoundException;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.sql.SQLException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
-public class AbstractDAOServiceTest {
+public class AbstractCrudRepositoryTest {
 
     @Mock
     private Dao<Object, Integer> dao;
@@ -27,11 +24,11 @@ public class AbstractDAOServiceTest {
     @Mock
     private TableFactory tableFactory;
 
-    private AbstractDAOService<Object> subject;
+    private AbstractCrudRepository<Object> subject;
 
     @Before
-    public void setUp() throws Exception {
-        subject = new AbstractDAOService<Object>(dao, tableFactory, Object.class) {
+    public void setUp() {
+        subject = new AbstractCrudRepository<Object>(dao, tableFactory, Object.class) {
 
         };
     }
@@ -50,7 +47,7 @@ public class AbstractDAOServiceTest {
     public void testGetById_notPresent() throws Exception {
         Object expected = new Object();
         when(dao.queryForId(123)).thenReturn(null);
-        assertThatExceptionOfType(ModelNotFoundException.class)
+        assertThatExceptionOfType(DAONotFoundException.class)
                 .isThrownBy(() -> subject.getById(123))
                 .withMessage("Object with id'123' not found.");
 
@@ -75,7 +72,7 @@ public class AbstractDAOServiceTest {
     }
 
     @Test
-    public void testOperate_exception() throws Exception {
+    public void testOperate_exception() {
         SQLOperation<String> operation = () -> {
             throw new SQLException("error");
         };

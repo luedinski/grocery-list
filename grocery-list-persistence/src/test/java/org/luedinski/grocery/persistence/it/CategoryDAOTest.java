@@ -1,15 +1,15 @@
 package org.luedinski.grocery.persistence.it;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.j256.ormlite.dao.Dao;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
-import org.luedinski.grocery.persistence.model.AbstractDAO;
-import org.luedinski.grocery.persistence.model.CategoryDAO;
-import org.luedinski.grocery.persistence.model.UserDAO;
+import org.luedinski.grocery.persistence.dao.AbstractDAO;
+import org.luedinski.grocery.persistence.dao.CategoryDAO;
+import org.luedinski.grocery.persistence.dao.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryDAOTest extends AbstractIntegrationTest {
 
